@@ -1,6 +1,6 @@
 from flask import render_template, redirect, url_for, flash, g, request
 from flask_login import login_required, current_user
-from .forms import LoginForm
+from .forms import LoginForm, SignupForm
 from . import auth
 
 @auth.route('/login', methods=('GET', 'POST'))
@@ -13,4 +13,8 @@ def login():
 
 @auth.route('/signup', methods=('GET', 'POST'))
 def signup():
-    return 'Sign up'
+    form = SignupForm()
+    if form.validate_on_submit():
+        flash('Signup requested for user')
+        return redirect('/')
+    return render_template('auth/signup.html', title='Sign Up', form=form)
