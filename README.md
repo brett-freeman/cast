@@ -8,7 +8,8 @@ Currently being re-written in python3.
 Create a virtualenv and install dependencies found in requirements.txt
 
 Within a python shell in the context of the app:
-import db, create_app from app
-db.create_all(app=create_app())
+>import db, create_app from app  
+>db.create_all(app=create_app())  
 
-From root folder: flask run
+From root folder: 
+>flask run
