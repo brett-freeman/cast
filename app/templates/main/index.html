@@ -5,7 +5,9 @@
 <div>
   {% if current_user.is_anonymous %}
   <a href="{{ url_for('auth.login') }}">Login</a>
+  <br><a href="{{ url_for('auth.register') }}">Register</a>
   {% else %}
+  Hello, <span style="font-weight: bold;">{{ current_user.username }}</span><br>
   <a href="{{ url_for('auth.logout') }}">Logout</a>
   {% endif %}
 
