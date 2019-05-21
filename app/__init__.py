@@ -2,8 +2,10 @@ import os
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 
 db = SQLAlchemy()
+login = LoginManager()
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
@@ -15,19 +17,26 @@ def create_app(test_config=None):
             SQLALCHEMY_TRACK_MODIFICATIONS=False
     )
 
+    # Load from default config if a test config is not specified
     if test_config is None:
         app.config.from_pyfile('config.py', silent=True)
     else:
         app.config.from_mapping(test_config)
 
-
+    # Ensure the instance directory exists
     try:
         os.makedirs(app.instance_path)
     except OSError:
         pass
 
-    db.init_app(app)
+    # Set view to send unauthorized users
+    login.login_view = 'auth.login'
 
+    # Initialize SQLAlchemy and flask-login
+    db.init_app(app)
+    login.init_app(app)
+
+    # Register our blueprints
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
