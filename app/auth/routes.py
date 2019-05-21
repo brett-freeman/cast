@@ -20,7 +20,12 @@ def login():
             flash('Invalid username or password')
             return redirect(url_for('auth.login'))
         login_user(user, remember=form.remember_me.data)
-        return(redirect(url_for('main.index')))
+        next_page = request.args.get('next')
+
+        # Redirect the user where they came from 
+        if not next_page or url_parse(next_page).netloc != '':
+            next_page = url_for('main.index')
+        return(redirect(next_page)
     return render_template('auth/login.html', title='Sign In', form=form)
 
 @auth.route('/signup', methods=('GET', 'POST'))
