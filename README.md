@@ -2,7 +2,7 @@
 Source code for bongcast.com, the website of #420@irc.p2p-network.net.
 Maintained by Brett.
 
-Currently being re-written in python3.
+Currently being re-written in python3. Sometimes there is a live version at https://dev.bongcast.com/ to play with.
 
 ## Install ##
 Create a virtualenv and install dependencies found in requirements.txt
