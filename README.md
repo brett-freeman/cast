@@ -7,12 +7,14 @@ Currently being re-written in python3.
 ## Install ##
 Create a virtualenv and install dependencies found in requirements.txt
 
-Within a python shell in the context of the app:
+## Database Initialization / Migration ##
 ```
-import db, create_app from app  
-db.create_all(app=create_app())  
+flask db init #Initialize database
+flask db migrate -m "Message" #Stage model changes
+flask db upgrade #Apply model changes staged in migrate
 ```
-From root folder: 
+
+## Run the app in development mode ##
 ```
 flask run
 ```
