@@ -10,6 +10,9 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(1000), unique=True)
     is_admin = db.Column(db.Boolean)
     
+    picks = db.relationship('Pick', backref='picker', lazy='dynamic')
+    casts_hosting = db.relationship('Cast', backref='host', lazy='dynamic')
+
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
@@ -38,6 +41,7 @@ class Cast(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     cast_number = db.Column(db.Integer, unique=True)
     description = db.Column(db.Text)
+    test = db.Column(db.Integer)
 
     host_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    picks = db.relationship('Pick', backref='cast', lazy='dynamic')
+    picks = db.relationship('Pick', backref='casts', lazy='dynamic')
