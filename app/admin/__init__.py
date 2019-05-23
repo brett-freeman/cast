@@ -4,6 +4,7 @@ from flask_login import current_user
 
 admin = Blueprint('admin', __name__)
 
+# Decorator function used to restrict page access to administrators
 def admin_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):

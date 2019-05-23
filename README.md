@@ -7,6 +7,12 @@ Currently being re-written in python3. Sometimes there is a live version at http
 ## Install ##
 Create a virtualenv and install dependencies found in requirements.txt
 
+```
+python3 -m venv venv
+. venv/bin/activate
+pip install -r requirements.txt
+```
+
 ## Database Initialization / Migration ##
 ```
 # Initialize the database for the first time
