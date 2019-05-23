@@ -9,9 +9,14 @@ Create a virtualenv and install dependencies found in requirements.txt
 
 ## Database Initialization / Migration ##
 ```
-flask db init #Initialize database
-flask db migrate -m "Message" #Stage model changes
-flask db upgrade #Apply model changes staged in migrate
+# Initialize the database for the first time
+flask db init 
+
+# Stage changes to models
+flask db migrate -m "Message"
+
+# Apply staged changes to models
+flask db upgrade 
 ```
 
 ## Run the app in development mode ##
