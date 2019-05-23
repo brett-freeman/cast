@@ -3,9 +3,11 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_migrate import Migrate
 
 db = SQLAlchemy()
 login = LoginManager()
+migrate = Migrate()
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
@@ -35,6 +37,7 @@ def create_app(test_config=None):
     # Initialize SQLAlchemy and flask-login
     db.init_app(app)
     login.init_app(app)
+    migrate.init_app(app, db)
 
     # Register our blueprints
     from .main import main as main_blueprint

@@ -1,5 +1,6 @@
-from flask import render_template, redirect, url_for, flash, g, request
+from flask import render_template, redirect, url_for, flash, g, request 
 from flask_login import login_required, current_user, login_user, logout_user
+from werkzeug.urls import url_parse
 
 from . import auth
 from .forms import LoginForm, RegisterForm
@@ -23,9 +24,9 @@ def login():
             flash('Invalid username or password')
             return redirect(url_for('auth.login'))
         login_user(user, remember=form.remember_me.data)
-        next_page = request.args.get('next')
 
         # Redirect the user where they came from 
+        next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('main.index')
         return redirect(next_page)
@@ -50,3 +51,13 @@ def register():
 def logout():
     logout_user()
     return redirect(url_for('main.index'))
+
+@auth.route('/user/<username>')
+@login_required
+def user(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    picks = [
+            {'author': user, 'body': 'Test post #1'},
+            {'author': user, 'body': 'Test post #2'}
+    ]
+    return render_template('auth/user.html', user=user, picks=picks)

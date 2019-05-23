@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>User: {{ user.username }}</h1>
+  <hr>
+  {% for pick in picks %}
+  <p>
+  {{ pick.author.username }} says: <strong>{{ pick.body }}</strong>
+  </p>
+  {% endfor %}
+{% endblock %}

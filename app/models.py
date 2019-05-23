@@ -1,6 +1,7 @@
 from . import db, login
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from datetime import datetime
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -17,3 +18,12 @@ class User(UserMixin, db.Model):
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
+class Pick(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    artist = db.Column(db.String(140))
+    album = db.Column(db.String(140))
+    song = db.Column(db.String(140))
+    description = db.Column(db.Text)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
