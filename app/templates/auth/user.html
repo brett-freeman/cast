@@ -4,8 +4,6 @@
   <h1>User: {{ user.username }}</h1>
   <hr>
   {% for pick in user.picks %}
-  <p>
-  {{ pick.picker.username }} says: <strong>{{ pick.description }}</strong>
-  </p>
+    {% include 'main/_pick.html' %}
   {% endfor %}
 {% endblock %}
